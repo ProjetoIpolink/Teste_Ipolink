@@ -320,16 +320,16 @@
                 }
                 obstacles.forEach(obstacle => {
                     obstacle.x -= obstacleSpeed;
-                    const hitBox = batSize * 0.4;
                     
                     // --- CORREÇÃO DA HITBOX ---
-                    // Adiciona um "padding" para tornar a caixa de colisão mais estreita que o obstáculo visual
-                    const collisionPadding = obstacleWidth * 0.25; // Ignora 25% de cada lado
+                    const batHitBox = batSize * 0.3; // Hitbox do morcego reduzida
+                    const obstacleCollisionWidth = obstacleWidth * 0.6; 
+                    const padding = (obstacleWidth - obstacleCollisionWidth) / 2;
 
                     if ( 
-                        bat.x + hitBox > obstacle.x + collisionPadding && 
-                        bat.x - hitBox < obstacle.x + obstacleWidth - collisionPadding && 
-                        (bat.y - hitBox < obstacle.topHeight || bat.y + hitBox > canvas.height - obstacle.bottomHeight)
+                        bat.x + batHitBox > obstacle.x + padding && 
+                        bat.x - batHitBox < obstacle.x + obstacleWidth - padding && 
+                        (bat.y - batHitBox < obstacle.topHeight || bat.y + batHitBox > canvas.height - obstacle.bottomHeight)
                     ) {
                         gameOver();
                     }
