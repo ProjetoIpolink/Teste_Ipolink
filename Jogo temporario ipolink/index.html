@@ -5,14 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ipolink - Em Breve</title>
     
+    <!-- Tailwind CSS via CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     
+    <!-- Font Awesome (para ícones) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
+    <!-- Google Fonts (Poppins e Inter) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
     
+    <!-- Tone.js para efeitos sonoros -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
 
     <style>
@@ -317,7 +321,19 @@
                 obstacles.forEach(obstacle => {
                     obstacle.x -= obstacleSpeed;
                     const hitBox = batSize * 0.4;
-                    if ( bat.x + hitBox > obstacle.x && bat.x - hitBox < obstacle.x + obstacleWidth && (bat.y - hitBox < obstacle.topHeight || bat.y + hitBox > canvas.height - obstacle.bottomHeight)) gameOver();
+                    
+                    // --- CORREÇÃO DA HITBOX ---
+                    // Adiciona um "padding" para tornar a caixa de colisão mais estreita que o obstáculo visual
+                    const collisionPadding = obstacleWidth * 0.25; // Ignora 25% de cada lado
+
+                    if ( 
+                        bat.x + hitBox > obstacle.x + collisionPadding && 
+                        bat.x - hitBox < obstacle.x + obstacleWidth - collisionPadding && 
+                        (bat.y - hitBox < obstacle.topHeight || bat.y + hitBox > canvas.height - obstacle.bottomHeight)
+                    ) {
+                        gameOver();
+                    }
+
                     if (obstacle.x + obstacleWidth < bat.x && !obstacle.passed) {
                         score++;
                         scoreSound.triggerAttackRelease("C6", "8n");
