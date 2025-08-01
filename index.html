@@ -1,406 +1,817 @@
 <!DOCTYPE html>
+
 <html lang="pt-BR">
+
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Ipolink - Em Breve</title>
+
     
-        <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Tailwind CSS via CDN -->
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
     
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- Font Awesome (para ícones) -->
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     
-        <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <!-- Google Fonts (Poppins e Inter) -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@700;800&display=swap" rel="stylesheet">
+
     
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+
+    <!-- Tone.js para efeitos sonoros -->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.7.77/Tone.js"></script>
+
+
 
     <style>
+
         /* Definindo as variáveis de cor do seu projeto */
+
         :root {
+
             --color-primary-green: #4C704B;
+
             --color-secondary-brown: #8B5E3C;
+
             --color-text-strong-on-light: #1C1C1C;
+
             --color-text-light-on-dark: #E0E0E0;
+
             --color-highlight-yellow: #FFD700;
+
             --color-background-main-dark-green: #2A3D2A;
+
         }
+
+
 
         /* Aplicando estilos base no corpo da página */
+
         body {
+
             font-family: 'Inter', sans-serif;
+
             background-color: var(--color-background-main-dark-green);
+
             color: var(--color-text-light-on-dark);
+
             -webkit-font-smoothing: antialiased;
+
             -moz-osx-font-smoothing: grayscale;
+
         }
+
+
 
         /* Aplicando a fonte Poppins para títulos */
+
         h1, h2, h3 {
+
             font-family: 'Poppins', sans-serif;
+
         }
+
         
+
         /* Estilo para o Canvas do jogo */
+
         #gameCanvas {
+
             background-color: #3a5a39; /* Um verde mais escuro para o fundo da caverna */
+
             border-radius: 0.5rem;
+
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+
             cursor: pointer;
+
             position: relative;
+
             /* Garante que o canvas se adapte à largura do container */
+
             width: 100%;
+
             /* Mantém a proporção de 4:5 */
+
             aspect-ratio: 4 / 5;
+
         }
+
+
 
         /* Mensagem de novo recorde da plataforma */
+
         #platform-record-message {
+
             background: rgba(0,0,0,0.8);
+
             border-radius: 0.5rem;
+
             transition: opacity 0.3s ease-in-out;
+
             cursor: pointer;
+
         }
+
     </style>
+
     
+
     <script>
+
         // Configurando o Tailwind para usar suas cores customizadas
+
         tailwind.config = {
+
             theme: {
+
                 extend: {
+
                     colors: {
+
                         'primary-green': 'var(--color-primary-green)',
+
                         'secondary-brown': 'var(--color-secondary-brown)',
+
                         'text-strong-on-light': 'var(--color-text-strong-on-light)',
+
                         'text-light-on-dark': 'var(--color-text-light-on-dark)',
+
                         'highlight-yellow': 'var(--color-highlight-yellow)',
+
                         'main-dark-green': 'var(--color-background-main-dark-green)',
+
                     },
+
                     fontFamily: {
+
                         'sans': ['Inter', 'sans-serif'],
+
                         'poppins': ['Poppins', 'sans-serif'],
+
                     }
+
                 }
+
             }
+
         }
+
     </script>
+
 </head>
+
 <body class="bg-main-dark-green">
 
+
+
     <div class="flex flex-col items-center justify-center min-h-screen text-center w-full p-4 sm:p-6 py-12">
+
         
+
         <div class="w-full max-w-3xl mb-12">
+
             <h1 class="text-6xl sm:text-7xl font-extrabold mb-6">
+
                 <span class="text-secondary-brown">ipo</span><span class="text-primary-green">link</span>
+
             </h1>
 
+
+
             <h2 class="font-poppins text-2xl sm:text-3xl font-bold text-white mb-4 max-w-2xl mx-auto">
+
                 Estamos construindo uma nova conexão para o turismo de Iporanga.
+
             </h2>
+
             
+
             <p class="text-lg text-text-light-on-dark mb-8 max-w-lg mx-auto">
+
                 O portal completo estará no ar em breve, cheio de novidades para explorar a cidade como nunca antes!
+
             </p>
+
+
 
             <p class="text-lg font-semibold text-highlight-yellow mb-6">
+
                 Nos siga no Instagram para não perder o lançamento!
+
             </p>
+
+
 
             <a href="https://www.instagram.com/ipolink.site/" target="_blank" rel="noopener noreferrer" 
+
                class="inline-flex items-center bg-highlight-yellow text-text-strong-on-light font-poppins font-bold py-3 px-8 rounded-lg text-lg shadow-lg hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105">
+
                 <i class="fab fa-instagram mr-3"></i>
+
                 Acompanhe no Instagram
+
             </a>
+
         </div>
+
+
 
         <div class="w-full max-w-sm md:max-w-md mx-auto relative">
+
              <p class="font-poppins text-xl font-bold text-white mb-4">Enquanto isso, que tal um voo pela caverna?</p>
+
             <canvas id="gameCanvas"></canvas>
+
             <div id="platform-record-message" class="absolute inset-0 flex flex-col justify-center items-center p-4 text-white opacity-0 hidden">
+
                 <div id="record-title" class="font-poppins text-2xl sm:text-3xl font-bold text-highlight-yellow mb-2"></div>
+
                 <p id="record-text" class="text-base sm:text-lg"></p>
+
                 <p class="mt-4 text-sm font-semibold">Tire um print e nos mande!</p>
+
                 <button id="play-again-button" class="mt-6 bg-highlight-yellow text-text-strong-on-light font-poppins font-bold py-2 px-6 rounded-lg text-base shadow-lg hover:bg-yellow-500 transition-colors">
+
                     Jogar Novamente
+
                 </button>
+
             </div>
+
         </div>
+
+
 
         <div class="mt-10 w-full max-w-sm md:max-w-md mx-auto text-center">
+
             <h3 class="font-poppins text-2xl font-bold text-highlight-yellow mb-4">
+
                 🏆 Top 3 da Caverna 🏆
+
             </h3>
+
             <div id="leaderboard" class="bg-primary-green/50 rounded-lg p-6 space-y-4">
+
                 </div>
+
             <p class="mt-6 text-text-light-on-dark/90 leading-relaxed px-4">
+
                 Fez uma pontuação alta? Mande um print da sua tela de "Fim de Jogo" para nosso Instagram 
+
                 <a href="https://www.instagram.com/ipolink.site/" target="_blank" rel="noopener noreferrer" class="text-highlight-yellow font-bold underline hover:text-yellow-300">@ipolink.site</a>
+
                 e entre para o ranking!
+
             </p>
+
         </div>
+
     </div>
 
+
+
     <script>
+
         document.addEventListener('DOMContentLoaded', () => {
+
             const canvas = document.getElementById('gameCanvas');
+
             const ctx = canvas.getContext('2d');
+
             const platformRecordMessage = document.getElementById('platform-record-message');
+
             const recordTitle = document.getElementById('record-title');
+
             const recordText = document.getElementById('record-text');
+
             const leaderboardDiv = document.getElementById('leaderboard');
 
+
+
             // --- EFEITOS SONOROS ---
+
             const flapSound = new Tone.NoiseSynth({ noise: { type: 'white' }, envelope: { attack: 0.001, decay: 0.1, sustain: 0 } }).toDestination();
+
             flapSound.volume.value = -10;
+
             const scoreSound = new Tone.Synth({ oscillator: { type: 'triangle' }, envelope: { attack: 0.01, decay: 0.2, sustain: 0, release: 0.2 } }).toDestination();
+
             scoreSound.volume.value = -5;
+
             const hitSound = new Tone.MembraneSynth().toDestination();
+
             const personalRecordSynth = new Tone.FMSynth().toDestination();
+
             const personalRecordMelody = new Tone.Sequence((time, note) => { personalRecordSynth.triggerAttackRelease(note, '8n', time); }, ['C5', 'E5', 'G5', 'C6'], '8n');
+
             personalRecordMelody.loop = false;
+
             const platformRecordSynth = new Tone.PolySynth(Tone.Synth).toDestination();
+
             const platformRecordMelody = new Tone.Sequence((time, note) => { platformRecordSynth.triggerAttackRelease(note, "8n", time); }, [ ['C5', 'G5'], null, ['E5', 'B5'], null, ['G5', 'D6'], null, ['C6', 'G6'] ]);
+
             platformRecordMelody.loop = false;
 
+
+
             // --- LÓGICA DO LEADERBOARD ---
+
             let leaderboard = [];
+
             const medals = ['🥇', '🥈', '🥉'];
+
             
+
             function renderLeaderboard() {
+
                 leaderboardDiv.innerHTML = '';
+
                 leaderboard.forEach((entry, index) => {
+
                     const entryDiv = document.createElement('div');
+
                     entryDiv.className = 'flex justify-between items-center text-lg';
+
                     entryDiv.innerHTML = `
+
                         <span class="font-bold text-white">${medals[index]} ${index + 1}º - ${entry.name}</span>
+
                         <span class="font-semibold text-highlight-yellow">${entry.score}</span>
+
                     `;
+
                     leaderboardDiv.appendChild(entryDiv);
+
                 });
+
             }
+
+
 
             function updateLeaderboard(newScore) {
+
                 const lowestTopScore = leaderboard.length > 0 ? leaderboard[leaderboard.length - 1].score : 0;
+
                 if (newScore <= lowestTopScore && leaderboard.length >= 3) return 0;
+
                 leaderboard = leaderboard.filter(e => e.name !== 'Você');
+
                 const playerEntry = { name: 'Você', score: newScore };
+
                 leaderboard.push(playerEntry);
+
                 leaderboard.sort((a, b) => b.score - a.score);
+
                 leaderboard = leaderboard.slice(0, 3);
+
                 localStorage.setItem('ipolinkLeaderboard', JSON.stringify(leaderboard));
+
                 renderLeaderboard();
+
                 const newRank = leaderboard.findIndex(entry => entry.name === 'Você') + 1;
+
                 return newRank; 
+
             }
+
+
 
             function loadLeaderboard() {
+
                 const savedLeaderboard = localStorage.getItem('ipolinkLeaderboard');
+
                 if (savedLeaderboard) {
+
                     leaderboard = JSON.parse(savedLeaderboard);
+
                 } else {
+
                     leaderboard = [
+
                         { name: 'Otavio', score: 22 },
+
                         { name: 'Higor Matheus', score: 21 },
+
                         { name: '[Aguardando]', score: 0 }
+
                     ];
+
                 }
+
                 renderLeaderboard();
+
             }
+
+
 
             // Variáveis do Jogo
+
             let bat, obstacles, score, bestScore, gameState;
+
             bestScore = localStorage.getItem('flappyBatBestScore') || 0;
 
+
+
             let gravity = 0.5;
+
             let lift = -8;
+
             let obstacleWidth = 60;
+
             let obstacleGap = 150;
+
             let obstacleSpeed = 3;
+
             let obstacleInterval = 90; 
+
             let batSize = 40; 
+
             let frameCount = 0;
 
+
+
             function setGameScale() {
+
                 const screenWidth = canvas.width;
+
                 gravity = screenWidth * 0.00125;
+
                 lift = -screenWidth * 0.02;
+
                 obstacleSpeed = screenWidth * 0.0075;
+
                 obstacleWidth = screenWidth * 0.15;
+
                 obstacleGap = screenWidth * 0.375;
+
                 batSize = screenWidth * 0.1;
+
             }
+
+
 
             function resizeCanvas() {
+
                 canvas.width = canvas.clientWidth;
+
                 canvas.height = canvas.clientHeight;
+
                 setGameScale();
+
             }
+
+
 
             function init() {
+
                 bat = { x: canvas.width / 4, y: canvas.height / 2, velocity: 0 };
+
                 obstacles = [];
+
                 score = 0;
+
                 frameCount = 0;
+
                 gameState = 'start';
+
                 platformRecordMessage.classList.add('hidden', 'opacity-0');
+
                 Tone.Transport.stop(); 
+
                 Tone.Transport.cancel();
+
             }
+
+
 
             function flap() {
+
                 if (Tone.context.state !== 'running') { Tone.start(); }
+
                 if (gameState === 'playing') {
+
                     bat.velocity = lift;
+
                     flapSound.triggerAttackRelease("0.05");
+
                 } else if (gameState === 'start' || gameState === 'gameOver') {
+
                     init();
+
                     gameState = 'playing';
+
                 }
+
             }
+
+
 
             function drawBat() {
+
                 ctx.save();
+
                 ctx.translate(bat.x, bat.y);
+
                 const rotation = Math.atan(bat.velocity / 12);
+
                 ctx.rotate(rotation);
+
                 ctx.font = `${batSize}px sans-serif`;
+
                 ctx.textAlign = 'center';
+
                 ctx.textBaseline = 'middle';
+
                 ctx.fillText('🦇', 0, 0);
+
                 ctx.restore();
+
             }
+
+
 
             function drawObstacles() {
+
                 ctx.fillStyle = '#848482';
+
                 obstacles.forEach(obstacle => {
+
                     ctx.beginPath();
+
                     ctx.moveTo(obstacle.x, 0);
+
                     ctx.lineTo(obstacle.x + obstacleWidth, 0);
+
                     ctx.lineTo(obstacle.x + obstacleWidth / 2, obstacle.topHeight);
+
                     ctx.fill();
+
                     ctx.beginPath();
+
                     ctx.moveTo(obstacle.x, canvas.height);
+
                     ctx.lineTo(obstacle.x + obstacleWidth, canvas.height);
+
                     ctx.lineTo(obstacle.x + obstacleWidth / 2, canvas.height - obstacle.bottomHeight);
+
                     ctx.fill();
+
                 });
+
             }
+
             
+
             function drawScore() {
+
                 ctx.fillStyle = 'white';
+
                 ctx.font = `bold ${canvas.width * 0.09}px 'Poppins'`;
+
                 ctx.textAlign = 'center';
-    _message.classList.contains('hidden')) {
+
+                ctx.fillText(score, canvas.width / 2, canvas.height * 0.1);
+
+                if (gameState === 'gameOver' && platformRecordMessage.classList.contains('hidden')) {
+
                     ctx.font = `bold ${canvas.width * 0.12}px 'Poppins'`;
+
                     ctx.fillText('Fim de Jogo', canvas.width / 2, canvas.height / 2 - canvas.height * 0.1);
+
                     ctx.font = `${canvas.width * 0.06}px 'Inter'`;
+
                     ctx.fillText(`Pontos: ${score}`, canvas.width / 2, canvas.height / 2);
+
                     ctx.fillText(`Melhor: ${bestScore}`, canvas.width / 2, canvas.height / 2 + canvas.height * 0.06);
+
                     ctx.font = `${canvas.width * 0.045}px 'Inter'`;
+
                     ctx.fillText('Clique para tentar de novo', canvas.width / 2, canvas.height / 2 + canvas.height * 0.16);
+
                 } else if (gameState === 'start') {
+
                     ctx.font = `bold ${canvas.width * 0.075}px 'Poppins'`;
+
                     ctx.fillText('Clique para Voar', canvas.width / 2, canvas.height / 2);
+
                 }
+
             }
+
             
+
             function update() {
+
                 if (gameState !== 'playing') return;
+
                 frameCount++;
+
                 bat.velocity += gravity;
+
                 bat.y += bat.velocity;
+
                 if (bat.y > canvas.height - batSize / 2 || bat.y < batSize / 2) gameOver();
+
                 if (frameCount % obstacleInterval === 0) {
+
                     const topHeight = Math.random() * (canvas.height - obstacleGap - (canvas.height * 0.1)) + (canvas.height * 0.05);
+
                     obstacles.push({ x: canvas.width, topHeight, bottomHeight: canvas.height - topHeight - obstacleGap, passed: false });
+
                 }
+
                 obstacles.forEach(obstacle => {
+
                     obstacle.x -= obstacleSpeed;
+
                     
+
                     // --- CORREÇÃO DA HITBOX ---
+
                     const batHitBox = batSize * 0.3; // Hitbox do morcego reduzida
+
                     const obstacleCollisionWidth = obstacleWidth * 0.6; 
+
                     const padding = (obstacleWidth - obstacleCollisionWidth) / 2;
 
+
+
                     if ( 
+
                         bat.x + batHitBox > obstacle.x + padding && 
+
                         bat.x - batHitBox < obstacle.x + obstacleWidth - padding && 
+
                         (bat.y - batHitBox < obstacle.topHeight || bat.y + batHitBox > canvas.height - obstacle.bottomHeight)
+
                     ) {
+
                         gameOver();
+
                     }
+
+
 
                     if (obstacle.x + obstacleWidth < bat.x && !obstacle.passed) {
+
                         score++;
+
                         scoreSound.triggerAttackRelease("C6", "8n");
+
                         obstacle.passed = true;
+
                     }
+
                 });
+
                 obstacles = obstacles.filter(obstacle => obstacle.x + obstacleWidth > 0);
+
             }
+
+
 
             function draw() {
+
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
+
                 drawBat();
+
                 drawObstacles();
+
                 drawScore();
+
             }
+
             
+
             function gameOver() {
+
                 if (gameState !== 'playing') return;
+
                 hitSound.triggerAttackRelease("C2", "4n");
+
                 gameState = 'gameOver';
+
                 const previousBestScore = bestScore;
+
                 if (score > bestScore) {
+
                     bestScore = score;
+
                     localStorage.setItem('flappyBatBestScore', bestScore);
+
                 }
+
                 const newRank = updateLeaderboard(score);
+
                 if (newRank > 0) {
+
                      Tone.Transport.start();
+
                 }
+
                 if (newRank === 1) {
+
                     recordTitle.textContent = "NOVO RECORDE!";
+
                     recordText.innerHTML = `Você assumiu o 1º lugar com <strong>${score}</strong> pontos!`;
+
                     platformRecordMessage.classList.remove('hidden');
+
                     setTimeout(() => platformRecordMessage.classList.remove('opacity-0'), 10);
+
                     platformRecordMelody.start();
+
                 } else if (newRank > 1) {
+
                     recordTitle.textContent = "TOP 3!";
+
                     recordText.innerHTML = `Você conquistou o <strong>${newRank}º lugar</strong> com <strong>${score}</strong> pontos!`;
+
                     platformRecordMessage.classList.remove('hidden');
+
                     setTimeout(() => platformRecordMessage.classList.remove('opacity-0'), 10);
+
                     personalRecordMelody.start();
+
                 } else if (score > previousBestScore) {
+
                     personalRecordMelody.start();
+
                 }
+
             }
+
+
 
             function gameLoop() {
+
                 update();
+
                 draw();
+
                 requestAnimationFrame(gameLoop);
+
             }
 
-            // Iniciar o jogo
-            window.addEventListener('resize', () => {
-                resizeCanvas();
-                init();
-            });
-            
-            loadLeaderboard();
-            resizeCanvas();
-            init();
-            gameLoop();
-            
-            // Adiciona evento de clique para reiniciar
-            canvas.addEventListener('click', flap);
-            canvas.addEventListener('touchstart', (e) => { e.preventDefault(); flap(); });
-            window.addEventListener('keydown', (e) => { if (e.code === 'Space') { e.preventDefault(); flap(); } });
-            // Adiciona evento de clique ao overlay de recorde
-            platformRecordMessage.addEventListener('click', flap);
-        });
-    </script>
-</body>
-</html>
-```
 
+
+            // Iniciar o jogo
+
+            window.addEventListener('resize', () => {
+
+                resizeCanvas();
+
+                init();
+
+            });
+
+            
+
+            loadLeaderboard();
+
+            resizeCanvas();
+
+            init();
+
+            gameLoop();
+
+            
+
+            // Adiciona evento de clique para reiniciar
+
+            canvas.addEventListener('click', flap);
+
+            canvas.addEventListener('touchstart', (e) => { e.preventDefault(); flap(); });
+
+            window.addEventListener('keydown', (e) => { if (e.code === 'Space') { e.preventDefault(); flap(); } });
+
+            // Adiciona evento de clique ao overlay de recorde
+
+            platformRecordMessage.addEventListener('click', flap);
+
+        });
+
+    </script>
+
+</body>
+
+</html>
