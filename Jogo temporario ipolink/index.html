@@ -202,8 +202,8 @@
                     leaderboard = JSON.parse(savedLeaderboard);
                 } else {
                     leaderboard = [
+                        { name: 'Otavio', score: 22 },
                         { name: 'Higor Matheus', score: 21 },
-                        { name: '[Aguardando]', score: 0 },
                         { name: '[Aguardando]', score: 0 }
                     ];
                 }
@@ -321,8 +321,7 @@
                 obstacles.forEach(obstacle => {
                     obstacle.x -= obstacleSpeed;
                     
-                    // --- CORREÇÃO DA HITBOX ---
-                    const batHitBox = batSize * 0.3; // Hitbox do morcego reduzida
+                    const batHitBox = batSize * 0.3; 
                     const obstacleCollisionWidth = obstacleWidth * 0.6; 
                     const padding = (obstacleWidth - obstacleCollisionWidth) / 2;
 
